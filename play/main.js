@@ -88,6 +88,7 @@ function create ()
         key: 'crounch',
         frames: this.anims.generateFrameNumbers('player', { start: 2, end: 2}),
         frameRate: 2,
+        repeat: -1,
     });
     this.anims.create({
         key: 'jump',
@@ -102,7 +103,7 @@ function create ()
     });
     this.anims.create({
         key: 'die',
-        frames: this.anims.generateFrameNumbers('player', { start: 8, end: 11 }),
+        frames: this.anims.generateFrameNumbers('player', { start: 7, end: 11 }),
         frameRate: 2,
     });
     
@@ -148,7 +149,11 @@ function update ()
         if (player.body.velocity.y == 0) {
             player.body.setMaxVelocityY(100000);
         }
-
+        //counch
+        if (Phaser.Input.Keyboard.JustDown(arrowKey?.down)) {
+            player.body.velocity.x = 0;
+            player.anims.play('counch', true);
+        }
         //jump
         if ((Phaser.Input.Keyboard.JustDown(arrowKey?.up) || Phaser.Input.Keyboard.JustDown(space)) && player.body.touching.down) {
             player.body.velocity.y = -50;
