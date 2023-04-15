@@ -63,8 +63,22 @@ function create ()
         platforms.create(8+16*i, 96-8, 'ground')
     }
 
+    let star = this.physics.add.group();
+    star.create(25,5,"star")
+    star.create(50,5,"star")
+    var starCount = 0;
+    var scoreText;
+    scoreText = this.add.text(2, 2, 'Score: ' + starCount, { fontSize: '14px', fill: '#fff' , fontFamily: 'Arial Black'});
+
     //make floor solid to player
     this.physics.add.collider(player, platforms);
+    this.physics.add.collider(star, platforms)
+    this.physics.add.collider(star, player, (obj1, obj2) => {
+        obj2.disableBody(true, true)
+        starCount += 10
+        scoreText.setText('Score: '+starCount)
+    });
+}
 
 }   
 
