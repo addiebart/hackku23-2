@@ -78,8 +78,6 @@ function create ()
         starCount += 10
         scoreText.setText('Score: '+starCount)
     });
-}
-
 }   
 
 /** @this {Phaser.Scene} */
