@@ -18,11 +18,12 @@ var config = {
 
 var game = new Phaser.Game(config);
 
+/** @this {Phaser.Game} */
 function preload ()
 {
     canvas = document.querySelectorAll("canvas")[0];
     canvas.className = "main";
-    this.load.setBaseURL("assets")
+    this.load.setBaseURL("../assets")
     this.load.image('background', 'brickwall.jpg');
     this.load.image('ground', 'woodplank.jpg');
     this.load.spritesheet("player", "player.png", {
@@ -31,6 +32,7 @@ function preload ()
     })
 }
 
+/** @this {Phaser.Game} */
 function create ()
 {
     //enable physics
@@ -57,6 +59,7 @@ function create ()
     }
 }
 
+/** @this {Phaser.Game} */
 function update ()
 {
     let speed = 16;
