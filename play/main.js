@@ -144,12 +144,21 @@ function create ()
 
     //code for player to die when touching enemy
     this.physics.add.collider(enemy1, platforms)
-    this.physics.add.collider(enemy1, player, (obj1, obj2) => {
-        //player.anims.play('die', true);
-        obj1.disableBody(true, true);
-        this.add.text(39, 36, 'YOU DIED', { fontSize: '11px', fill: '#ff0000', fontFamily: 'Arial Black', backgroundColor: 'rgba(0,0,0,0.75)'});
-        this.add.text(36, 48, 'Final score: ' + starCount, {fontSize: '10px', fontFamily: 'Arial', backgroundColor:'rgba(0,0,0,0.75)'})
-        //obj1.disableBody(true, true);
+    this.physics.add.collider(enemy1, player, (player, enemy1) => {
+        if (player.body.touching.down && enemy1.body.touching.up) {
+            enemy1.body.velocity.x = 0;
+            enemy1.anims.play('enemy1_die', true);
+            setTimeout(() => {
+                enemy1.disableBody(true, true);
+            }, 2000)
+            starCount += 10;
+        } else {
+            //player.anims.play('die', true);
+            player.disableBody(true, true);
+            this.add.text(39, 36, 'YOU DIED', { fontSize: '11px', fill: '#ff0000', fontFamily: 'Arial Black', backgroundColor: 'rgba(0,0,0,0.75)'});
+            this.add.text(36, 48, 'Final score: ' + starCount, {fontSize: '10px', fontFamily: 'Arial', backgroundColor:'rgba(0,0,0,0.75)'})
+            //obj1.disableBody(true, true);
+        }
     })
 
     //camera
@@ -199,7 +208,7 @@ function update ()
         }
 
         //enemy animation
-        if (Math.abs(my_enemy_1.body.velocity) != 0) {
+        if (Math.abs(my_enemy_1.body.velocity.x) != 0) {
             my_enemy_1.anims.play('enemy1_walk', true)
         }
 
