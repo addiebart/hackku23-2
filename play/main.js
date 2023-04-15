@@ -24,12 +24,17 @@ function preload ()
     canvas = document.querySelectorAll("canvas")[0];
     canvas.className = "main";
     this.load.setBaseURL("../assets")
-    this.load.image('background', 'brickwall.jpg');
-    this.load.image('ground', 'woodplank.jpg');
+    this.load.image('background', 'background.png');
+    this.load.image('star', 'star.png')
+    this.load.spritesheet('ground', 'ground.png', {
+        frameWidth: 16,
+        frameHeight: 16});
     this.load.spritesheet("player", "player.png", {
         frameWidth: 16,
-        frameHeight: 16
-    })
+        frameHeight: 16});
+    this.load.spritesheet("enemy1", "enemy1.png", {
+        frameWidth: 16,
+        frameHeight: 16});
 }
 
 /** @this {Phaser.Game} */
