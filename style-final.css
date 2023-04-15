@@ -1,0 +1,48 @@
+* {
+    font-family: Anuphan, sans-serif;
+}
+
+html {
+    background-image: url("galaxis-nebula-sterne-weltraum-1641701178HeV.jpg");
+}
+
+h1, h2{
+    text-align: center;
+    color: #fff;
+}
+
+.game-placeholder {
+    height: 600px;
+    width: 800px;
+    background-color:fuchsia;
+    margin: auto;
+}
+
+.authors{
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.6);
+    max-width: fit-content;
+    border: 0px;
+    border-radius: 3px;
+}
+
+.gameinfo{
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.6);
+    max-width: fit-content;
+    border: 0px;
+    border-radius: 3    px;
+}
+
+button{
+    background-color: rgba(25, 25, 112, 0.75);   
+    color: #fff;
+    font-family: Anuphan, sans-serif;
+    border: 2px solid white;
+    border-radius: 3px;
+}
+
+.buttons-container{
+    width: fit-content;
+    margin: auto;
+}
