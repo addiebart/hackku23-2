@@ -5,7 +5,7 @@ var config = {
 	physics: {
 		default: 'arcade',
 		arcade: {
-			gravity: { y: 32 }
+			gravity: { y: 48 }
 		}
 	},
 	pixelArt: true,
@@ -48,6 +48,7 @@ function create ()
     let bg = this.add.image(0, 0, "background");
     bg.scale = .25;
     bg.setOrigin(0, 0);
+    /** @type {Phaser.GameObjects.Sprite} */
     player = this.physics.add.sprite(1*16, 16, "player");
     player.setOrigin(.5, 0);
     player.body.collideWorldBounds = true;
@@ -60,6 +61,7 @@ function create ()
 
     //make floor solid to player
     this.physics.add.collider(player, platforms);
+
 }
 
 /** @this {Phaser.Game} */
@@ -82,7 +84,7 @@ function update ()
         //fastfall
         if (arrowKey?.down.isDown && player.body.velocity.y < 0) {
             player.body.setMaxVelocityY(24);
-            player.body.velocity.y -= .0001;
+            player.body.velocity.y += 2;
         }
 
         if (player.body.velocity.y == 0) {
@@ -90,7 +92,7 @@ function update ()
         }
 
         //jump
-        if ((Phaser.Input.Keyboard.JustDown(arrowKey?.up) || Phaser.Input.Keyboard.JustDown(space)) && player.body.checkCollision.down) {
-            player.body.velocity.y = -300;
+        if ((Phaser.Input.Keyboard.JustDown(arrowKey?.up) || Phaser.Input.Keyboard.JustDown(space)) && player.body.touching.down) {
+            player.body.velocity.y = -50;
         }
 }
