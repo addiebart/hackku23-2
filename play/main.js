@@ -84,7 +84,7 @@ function create ()
 
     //camera
     this.cameras.main.startFollow(player);
-
+}
 
 /** @this {Phaser.Scene} */
 function update ()
