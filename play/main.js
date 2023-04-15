@@ -50,8 +50,11 @@ function create ()
     arrowKey = this.input.keyboard?.createCursorKeys();
     space = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-    let bg = this.add.image(0, 0, "background");
-    bg.scale = .25;
+    let bg = this.physics.add.sprite(0, 0, "background");
+    bg.body.setMaxVelocityY(0);
+    bg.body.setMaxVelocityX(0);
+    bg.setScrollFactor(0);
+    bg.scale = .03;
     bg.setOrigin(0, 0);
     /** @type {Phaser.GameObjects.Sprite} */
     player = this.physics.add.sprite(1*16, 16, "player");
@@ -78,9 +81,12 @@ function create ()
         starCount += 10
         scoreText.setText('Score: '+starCount)
     });
+
+    //camera
+    this.cameras.main.startFollow(player);
 }
 
-}   
+
 
 /** @this {Phaser.Scene} */
 function update ()
@@ -115,7 +121,6 @@ function update ()
         }
 
         //camera follows player
-        this.cameras.main.centerOnX(player.x);
-        this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+        this.cameras.main.setBounds(0, 0, map.widthInPixels, 96);
 
 }
