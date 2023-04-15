@@ -114,6 +114,21 @@ function create ()
         scoreText.setText('Score: '+starCount)
     });
 
+    //animation set for enemy1
+    this.anims.create({
+        key: 'enemy1_walk',
+        frames: this.anims.generateFrameNumbers('enemy1', { start: 0, end: 4 }),
+        frameRate: 2,
+        repeat: -1,
+    });
+    this.anims.create({
+        key: 'enemy1_die',
+        frames: this.anims.generateFrameNumbers('enemy1', { start: 5, end: 11 }),
+        frameRate: 2,
+        repeat: 0,
+        hideOnComplete: true
+    });
+
     //camera
     this.cameras.main.startFollow(player);
 }
