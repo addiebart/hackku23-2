@@ -2,8 +2,14 @@
     font-family: Anuphan, sans-serif;
 }
 
-html {
-    background-image: url("galaxis-nebula-sterne-weltraum-1641701178HeV.jpg");
+body {
+    background: 
+        linear-gradient(
+        rgba(0, 0, 0, 0.6), 
+        rgba(0, 0, 0, 0.6)
+        ),
+      url("galaxis-nebula-sterne-weltraum-1641701178HeV.jpg");
+    height: 100%;
 }
 
 h1, h2{
@@ -11,11 +17,17 @@ h1, h2{
     color: #fff;
 }
 
-.game-placeholder {
-    height: 600px;
-    width: 800px;
+.gamewrapper {
     background-color:fuchsia;
     margin: auto;
+    border: 1em outset black;
+    width: 45em;
+    height: 45em;
+}
+
+#inlineGame {
+    height:100%;
+    width: 100%;
 }
 
 .authors{
@@ -31,7 +43,7 @@ h1, h2{
     background-color: rgba(0, 0, 0, 0.6);
     max-width: fit-content;
     border: 0px;
-    border-radius: 3    px;
+    border-radius: 3 px;
 }
 
 button{
@@ -42,7 +54,23 @@ button{
     border-radius: 3px;
 }
 
-.buttons-container{
+.footer{
+    width: fit-content;
+    flex-grow: 1;
+    padding: 20px;
+    margin: auto;
+}
+
+.header{
     width: fit-content;
     margin: auto;
+}
+
+.flex-column{
+    display: flex;
+    flex-direction:column;
+    margin: auto;
+    justify-content: space-evenly;
+    width:75%;
+    height: 90%;
 }

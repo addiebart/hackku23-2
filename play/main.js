@@ -175,14 +175,17 @@ function create ()
             enemy1.anims.play('enemy1_die', true);
             setTimeout(() => {
                 enemy1.disableBody(true, true);
+
                 starCount += 1;
                 scoreText.setText('Score: '+starCount)
+
+                enemyGone = true
             }, 400);
         } else {
             if (enemy1.body.velocity.x != 0) {
                 player.disableBody(true, true);
-                this.add.text(39, 36, 'YOU DIED', { fontSize: '11px', fill: '#ff0000', fontFamily: 'Arial Black', backgroundColor: 'rgba(0,0,0,0.75)'});
-                this.add.text(36, 48, 'Final score: ' + starCount, {fontSize: '10px', fontFamily: 'Arial', backgroundColor:'rgba(0,0,0,0.75)'})
+                this.add.text(25, 36, 'YOU DIED', { fontSize: '11px', fill: '#ff0000', fontFamily: 'Arial Black', backgroundColor: 'rgba(0,0,0,0.75)'});
+                this.add.text(22, 48, 'Final score: ' + starCount, {fontSize: '10px', fontFamily: 'Arial', backgroundColor:'rgba(0,0,0,0.75)'})
                 //obj1.disableBody(true, true);
             }
         }

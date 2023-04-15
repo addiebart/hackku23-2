@@ -6,7 +6,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="style-final.css">
         <link rel="stylesheet" href="index/style-final.css">
-        <script>
+        <script type="text/javascript">
             function authors(){
                 if (document.getElementById("authorsbutton").value == "off") {
                     document.getElementById("authors").innerHTML = "By Addie, Anya, Hunter, and Tommy. Made for HackKU 2023"
@@ -41,15 +41,15 @@
         </script>
     </head>
     <body>
-        <h1>Cool epic fun game!</h1>
-        <div class="buttons-container">
-            <button id="gamebutton" onclick="gameinfo()" onmouseover="this.style.color='gray';this.style.borderColor='gray'" onmouseout="this.style.color='#fff';this.style.borderColor='white'" value="off">About the Game &#9655;</button>
-            <span id="gameinfo" class="gameinfo"></span>
-            <button id="authorsbutton" onclick="authors()" onmouseover="this.style.color='gray';this.style.borderColor='gray'" onmouseout="this.style.color='#fff';this.style.borderColor='white'" value="off">About Us &#9655;</button>
-            <span id="authors" class="authors"></span>
-        </div>
-        <div class="game-placeholder">
-            <h1>GAME GOES HERE</h1>
+        <div class="flex-column">
+            <div class="header"><h1>Cool epic fun game!</h1></div>
+            <div class="gamewrapper"><iframe id="inlineGame" src="https://addie.ml/hackku23-2/play/index.html"></iframe></div>
+            <div class="footer">
+                <button id="gamebutton" onclick="gameinfo()" onmouseover="this.style.color='gray';this.style.borderColor='gray'" onmouseout="this.style.color='#fff';this.style.borderColor='white'" value="off">About the Game &#9655;</button>
+                <span id="gameinfo" class="gameinfo"></span>
+                <button id="authorsbutton" onclick="authors()" onmouseover="this.style.color='gray';this.style.borderColor='gray'" onmouseout="this.style.color='#fff';this.style.borderColor='white'" value="off">About Us &#9655;</button>
+                <span id="authors" class="authors"></span>
+            </div>
         </div>
     </body>
 </html>
