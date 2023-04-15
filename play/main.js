@@ -71,8 +71,11 @@ function create ()
     star.create(50,5,"star")
     var starCount = 0;
     var scoreText;
-    scoreText = this.add.text(2, 2, 'Score: ' + starCount, { fontSize: '12px', fill: '#fff' , fontFamily: 'Arial Black'});
+    scoreText = this.add.text(2, 2, 'Score: ' + starCount, { fontSize: '11px', fill: '#fff' , fontFamily: 'Arial', backgroundColor: 'rgba(0,0,0,0.75)'});
     scoreText.setScrollFactor(0)
+
+    let enemy1 = this.physics.add.group();
+    enemy1.create(75,5,"enemy1")
 
     //make floor solid to player
     this.physics.add.collider(player, platforms);
@@ -105,13 +108,24 @@ function create ()
         frames: this.anims.generateFrameNumbers('player', { start: 8, end: 11 }),
         frameRate: 2,
     });
-    
+
+    //code for player to collect stars
     this.physics.add.collider(star, platforms)
     this.physics.add.overlap(star, player, (obj1, obj2) => {
         obj2.disableBody(true, true)
         starCount += 10
         scoreText.setText('Score: '+starCount)
     });
+
+    //code for player to die when touching enemy
+    this.physics.add.collider(enemy1, platforms)
+    this.physics.add.collider(enemy1, player, (obj1, obj2) => {
+        //player.anims.play('die', true);
+        obj1.disableBody(true, true);
+        this.add.text(39, 36, 'YOU DIED', { fontSize: '11px', fill: '#ff0000', fontFamily: 'Arial Black', backgroundColor: 'rgba(0,0,0,0.75)'});
+        this.add.text(36, 48, 'Final score: ' + starCount, {fontSize: '10px', fontFamily: 'Arial', backgroundColor:'rgba(0,0,0,0.75)'})
+        //obj1.disableBody(true, true);
+    })
 
     //camera
     this.cameras.main.startFollow(player);
