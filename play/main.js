@@ -45,6 +45,7 @@ function create ()
 
     //make map
     map = this.make.tilemap({key: 'map'});
+    
 
     //controls
     arrowKey = this.input.keyboard?.createCursorKeys();
@@ -62,7 +63,8 @@ function create ()
 
     let platforms = this.physics.add.staticGroup();
     platforms.setOrigin(0,0);
-    for (let i = 0; i < 255; i++) {
+    tileswide = 511;
+    for (let i = 0; i < tileswide; i++) {
         platforms.create(8+16*i, 96-8, 'ground')
     }
 
@@ -85,7 +87,7 @@ function create ()
         repeat: -1,
     });
     this.anims.create({
-        key: 'crounch',
+        key: 'crouch',
         frames: this.anims.generateFrameNumbers('player', { start: 2, end: 2}),
         frameRate: 2,
         repeat: -1,
@@ -150,9 +152,9 @@ function update ()
             player.body.setMaxVelocityY(100000);
         }
         //counch
-        if (Phaser.Input.Keyboard.JustDown(arrowKey?.down)) {
+        if (Phaser.Input.Keyboard.DownDuration(arrowKey?.down, Infinity)) {
             player.body.velocity.x = 0;
-            player.anims.play('counch', true);
+            player.anims.play('crouch', true);
         }
         //jump
         if ((Phaser.Input.Keyboard.JustDown(arrowKey?.up) || Phaser.Input.Keyboard.JustDown(space)) && player.body.touching.down) {
@@ -161,6 +163,6 @@ function update ()
         }
 
         //camera follows player
-        this.cameras.main.setBounds(0, 0, map.widthInPixels, 96);
+        this.cameras.main.setBounds(0, 0, (tileswide-1) * 16, 96);
 
 }
