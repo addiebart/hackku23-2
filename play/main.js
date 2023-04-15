@@ -51,6 +51,7 @@ function create ()
     arrowKey = this.input.keyboard?.createCursorKeys();
     space = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
+    //draw background
     let bg = this.physics.add.sprite(0, 0, "background");
     bg.body.setMaxVelocityY(0);
     bg.body.setMaxVelocityX(0);
@@ -64,9 +65,14 @@ function create ()
     let platforms = this.physics.add.staticGroup();
     platforms.setOrigin(0,0);
     tileswide = 511;
+    //draw ground
     for (let i = 0; i < tileswide; i++) {
-        platforms.create(8+16*i, 96-8, 'ground')
+        platforms.create(8+16*i, 96, 'ground')
     }
+
+    platCoords = [
+        []        
+    ]
 
     let star = this.physics.add.group();
     star.create(25,5,"star")
