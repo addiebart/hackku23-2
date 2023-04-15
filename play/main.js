@@ -35,6 +35,10 @@ function preload ()
     this.load.spritesheet("enemy1", "enemy1.png", {
         frameWidth: 16,
         frameHeight: 16});
+    this.load.spritesheet("planks", "woodplank.jpg", {
+        frameHeight: 8,
+        frameWidth: 8
+    })
 }
 
 /** @this {Phaser.Scene} */
@@ -72,8 +76,23 @@ function create ()
     }
     //co-oridinates of platform blocks to be placed in a loop.
     platCoords = [
-        []        
-    ]
+        [0,0],[0,1],[0,2],[0,3],[0,4],[0,5],
+        [0,6],[0,7],[0,8],[0,9],[0,10],[0,11],
+        [0,12],[5,2],[5,3],[9,2],[9,3],[9,4]        
+    ];
+
+    let convertPlatXY = function(coord, yflag) {
+        let out = coord;
+        if (yflag) {out = 12 - out;} //flip coords
+        out *= 8; //for 16-pixel tiles
+        out -= 4; //to center
+        return out;
+    }
+
+    //draw platforms
+    // for (let i = 0; i < platCoords.length; i++) {
+    //     platforms.create(convertPlatXY(platCoords[i][0], false), convertPlatXY(platCoords[i][1], true), "planks");
+    // }
 
     let star = this.physics.add.group();
     star.create(25,5,"star")
@@ -158,7 +177,7 @@ function update ()
         if (player.body.velocity.y == 0) {
             player.body.setMaxVelocityY(100000);
         }
-        //counch
+        //crouch
         if (Phaser.Input.Keyboard.DownDuration(arrowKey?.down, Infinity)) {
             player.body.velocity.x = 0;
             player.anims.play('crouch', true);
