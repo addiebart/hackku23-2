@@ -82,8 +82,9 @@ function create ()
     scoreText = this.add.text(2, 2, 'Score: ' + starCount, { fontSize: '11px', fill: '#fff' , fontFamily: 'Arial', backgroundColor: 'rgba(0,0,0,0.75)'});
     scoreText.setScrollFactor(0)
 
-    let enemy1 = this.physics.add.group();
-    enemy1.create(75,5,"enemy1")
+    enemy1 = this.physics.add.group();
+    my_enemy_1 = enemy1.create(75,5,"enemy1");
+    my_enemy_1.body.velocity.x = -2;
 
     //make floor solid to player
     this.physics.add.collider(player, platforms);
@@ -197,7 +198,13 @@ function update ()
             player.anims.play('jump', true);
         }
 
+        //enemy animation
+        if (Math.abs(my_enemy_1.body.velocity) != 0) {
+            my_enemy_1.anims.play('enemy1_walk', true)
+        }
+
         //camera follows player
         this.cameras.main.setBounds(0, 0, (tileswide-1) * 16, 96);
+
 
 }
