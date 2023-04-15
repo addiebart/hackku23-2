@@ -45,11 +45,13 @@ function create ()
 
     //make map
     map = this.make.tilemap({key: 'map'});
+    
 
     //controls
     arrowKey = this.input.keyboard?.createCursorKeys();
     space = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
+    //draw background
     let bg = this.physics.add.sprite(0, 0, "background");
     bg.body.setMaxVelocityY(0);
     bg.body.setMaxVelocityX(0);
@@ -62,9 +64,15 @@ function create ()
 
     let platforms = this.physics.add.staticGroup();
     platforms.setOrigin(0,0);
-    for (let i = 0; i < 255; i++) {
-        platforms.create(8+16*i, 96-8, 'ground')
+    tileswide = 511;
+    //draw ground
+    for (let i = 0; i < tileswide; i++) {
+        platforms.create(8+16*i, 96, 'ground')
     }
+
+    platCoords = [
+        []        
+    ]
 
     let star = this.physics.add.group();
     star.create(25,5,"star")
@@ -88,9 +96,10 @@ function create ()
         repeat: -1,
     });
     this.anims.create({
-        key: 'crounch',
+        key: 'crouch',
         frames: this.anims.generateFrameNumbers('player', { start: 2, end: 2}),
         frameRate: 2,
+        repeat: -1,
     });
     this.anims.create({
         key: 'jump',
@@ -105,7 +114,7 @@ function create ()
     });
     this.anims.create({
         key: 'die',
-        frames: this.anims.generateFrameNumbers('player', { start: 8, end: 11 }),
+        frames: this.anims.generateFrameNumbers('player', { start: 7, end: 11 }),
         frameRate: 2,
     });
 
@@ -115,6 +124,21 @@ function create ()
         obj2.disableBody(true, true)
         starCount += 10
         scoreText.setText('Score: '+starCount)
+    });
+
+    //animation set for enemy1
+    this.anims.create({
+        key: 'enemy1_walk',
+        frames: this.anims.generateFrameNumbers('enemy1', { start: 0, end: 4 }),
+        frameRate: 2,
+        repeat: -1,
+    });
+    this.anims.create({
+        key: 'enemy1_die',
+        frames: this.anims.generateFrameNumbers('enemy1', { start: 5, end: 11 }),
+        frameRate: 2,
+        repeat: 0,
+        hideOnComplete: true
     });
 
     //code for player to die when touching enemy
@@ -162,7 +186,11 @@ function update ()
         if (player.body.velocity.y == 0) {
             player.body.setMaxVelocityY(100000);
         }
-
+        //counch
+        if (Phaser.Input.Keyboard.DownDuration(arrowKey?.down, Infinity)) {
+            player.body.velocity.x = 0;
+            player.anims.play('crouch', true);
+        }
         //jump
         if ((Phaser.Input.Keyboard.JustDown(arrowKey?.up) || Phaser.Input.Keyboard.JustDown(space)) && player.body.touching.down) {
             player.body.velocity.y = -50;
@@ -170,6 +198,6 @@ function update ()
         }
 
         //camera follows player
-        this.cameras.main.setBounds(0, 0, map.widthInPixels, 96);
+        this.cameras.main.setBounds(0, 0, (tileswide-1) * 16, 96);
 
 }
