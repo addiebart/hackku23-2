@@ -32,7 +32,7 @@ function preload ()
     })
 }
 
-/** @this {Phaser.Game} */
+/** @this {Phaser.Scene} */
 function create ()
 {
     //enable physics
@@ -51,7 +51,6 @@ function create ()
     /** @type {Phaser.GameObjects.Sprite} */
     player = this.physics.add.sprite(1*16, 16, "player");
     player.setOrigin(.5, 0);
-    player.body.collideWorldBounds = true;
 
     let platforms = this.physics.add.staticGroup();
     platforms.setOrigin(0,0);
@@ -62,9 +61,9 @@ function create ()
     //make floor solid to player
     this.physics.add.collider(player, platforms);
 
-}
+}   
 
-/** @this {Phaser.Game} */
+/** @this {Phaser.Scene} */
 function update ()
 {
     let speed = 16;
@@ -95,4 +94,9 @@ function update ()
         if ((Phaser.Input.Keyboard.JustDown(arrowKey?.up) || Phaser.Input.Keyboard.JustDown(space)) && player.body.touching.down) {
             player.body.velocity.y = -50;
         }
+
+        //camera follows player
+        this.cameras.main.centerOnX(player.x);
+        this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+
 }
