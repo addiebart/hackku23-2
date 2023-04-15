@@ -108,7 +108,7 @@ function create ()
     });
     
     this.physics.add.collider(star, platforms)
-    this.physics.add.collider(star, player, (obj1, obj2) => {
+    this.physics.add.overlap(star, player, (obj1, obj2) => {
         obj2.disableBody(true, true)
         starCount += 10
         scoreText.setText('Score: '+starCount)
