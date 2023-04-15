@@ -61,4 +61,32 @@ function create ()
 
 function update ()
 {
+    let speed = 16;
+
+        //right
+        if (arrowKey?.right.isDown) {
+            player.body.velocity.x = speed;
+            player.flipX = false;
+        }
+        //left
+        else if (arrowKey?.left.isDown) {
+            player.body.velocity.x = -speed;
+            player.flipX = true;
+        }
+        //default
+        else {player.body.velocity.x = 0}
+        //fastfall
+        if (arrowKey?.down.isDown && player.body.velocity.y < 0) {
+            player.body.setMaxVelocityY(24);
+            player.body.velocity.y -= .0001;
+        }
+
+        if (player.body.velocity.y == 0) {
+            player.body.setMaxVelocityY(100000);
+        }
+
+        //jump
+        if ((Phaser.Input.Keyboard.JustDown(arrowKey?.up) || Phaser.Input.Keyboard.JustDown(space)) && player.body.checkCollision.down) {
+            player.body.velocity.y = -300;
+        }
 }
