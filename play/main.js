@@ -65,25 +65,59 @@ function create ()
 
     //make floor solid to player
     this.physics.add.collider(player, platforms);
+
+    //animation set for player
+    this.anims.create({
+        key: 'idle',
+        frames: this.anims.generateFrameNumbers('player', { start: 0, end: 1 }),
+        frameRate: 2,
+        repeat: -1,
+    });
+    this.anims.create({
+        key: 'crounch',
+        frames: this.anims.generateFrameNumbers('player', { start: 2, end: 2}),
+        frameRate: 2,
+    });
+    this.anims.create({
+        key: 'jump',
+        frames: this.anims.generateFrameNumbers('player', { start: 3, end: 4 }),
+        frameRate: 2,
+    });
+    this.anims.create({
+        key: 'walk',
+        frames: this.anims.generateFrameNumbers('player', { start: 5, end: 6 }),
+        frameRate: 2,
+        repeat: -1,
+    });
+    this.anims.create({
+        key: 'die',
+        frames: this.anims.generateFrameNumbers('player', { start: 8, end: 11 }),
+        frameRate: 2,
+    });
 }
 
 /** @this {Phaser.Game} */
 function update ()
 {
     let speed = 16;
-
+    
         //right
         if (arrowKey?.right.isDown) {
             player.body.velocity.x = speed;
+            player.anims.play('walk', true);
             player.flipX = false;
         }
         //left
         else if (arrowKey?.left.isDown) {
             player.body.velocity.x = -speed;
+            player.anims.play('walk', true);
             player.flipX = true;
         }
         //default
-        else {player.body.velocity.x = 0}
+        else {
+            player.body.velocity.x = 0
+            player.anims.play('idle', true);
+        }
         //fastfall
         if (arrowKey?.down.isDown && player.body.velocity.y < 0) {
             player.body.setMaxVelocityY(24);
@@ -96,6 +130,7 @@ function update ()
 
         //jump
         if ((Phaser.Input.Keyboard.JustDown(arrowKey?.up) || Phaser.Input.Keyboard.JustDown(space)) && player.body.checkCollision.down) {
-            player.body.velocity.y = -300;
+            player.body.velocity.y = -100;
+            player.anims.play('jump', true);
         }
 }
