@@ -56,6 +56,7 @@ function create ()
     //controls
     arrowKey = this.input.keyboard?.createCursorKeys();
     space = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    shift = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
 
     //draw background
     let bg = this.physics.add.sprite(0, 0, "background");
@@ -199,12 +200,18 @@ function update ()
         //right
         if (arrowKey?.right.isDown) {
             player.body.velocity.x = speed;
+            if (player.body.touching.down && shift.isDown) {
+                player.body.velocity.x = speed * 2.5;
+            }
             player.anims.play('walk', true);
             player.flipX = false;
         }
         //left
         else if (arrowKey?.left.isDown) {
             player.body.velocity.x = -speed;
+            if (player.body.touching.down && shift.isDown) {
+                player.body.velocity.x = -speed * 2.5;
+            }
             player.anims.play('walk', true);
             player.flipX = true;
         }
