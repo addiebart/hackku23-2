@@ -57,6 +57,9 @@ function create ()
     for (let i = 0; i < 255; i++) {
         platforms.create(8+16*i, 96-8, 'ground')
     }
+
+    //make floor solid to player
+    this.physics.add.collider(player, platforms);
 }
 
 /** @this {Phaser.Game} */
