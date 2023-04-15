@@ -71,7 +71,8 @@ function create ()
     star.create(50,5,"star")
     var starCount = 0;
     var scoreText;
-    scoreText = this.add.text(2, 2, 'Score: ' + starCount, { fontSize: '14px', fill: '#fff' , fontFamily: 'Arial Black'});
+    scoreText = this.add.text(2, 2, 'Score: ' + starCount, { fontSize: '12px', fill: '#fff' , fontFamily: 'Arial Black'});
+    scoreText.setScrollFactor(0)
 
     //make floor solid to player
     this.physics.add.collider(player, platforms);
