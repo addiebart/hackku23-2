@@ -61,6 +61,7 @@ function create ()
     /** @type {Phaser.GameObjects.Sprite} */
     player = this.physics.add.sprite(1*16, 16, "player");
     player.setOrigin(.5, 0);
+    player.setSize(8, 16, true);
 
     let platforms = this.physics.add.staticGroup();
     platforms.setOrigin(0,0);
@@ -69,7 +70,7 @@ function create ()
     for (let i = 0; i < tileswide; i++) {
         platforms.create(8+16*i, 96, 'ground')
     }
-
+    //co-oridinates of platform blocks to be placed in a loop.
     platCoords = [
         []        
     ]
