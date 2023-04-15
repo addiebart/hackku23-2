@@ -80,7 +80,8 @@ function create ()
     platCoords = [
         [0,0],[0,1],[0,2],[0,3],[0,4],[0,5],
         [0,6],[0,7],[0,8],[0,9],[0,10],[0,11],
-        [0,12],[5,2],[5,3],[9,2],[9,3],[9,4]        
+        [0,12],[5,2],[5,3],[9,2],[9,3],[9,4],[9,5],
+        [12,2],[12,3],[12,4],[9,9]        
     ];
 
     let convertPlatXY = function(coord, yflag) {
@@ -88,25 +89,26 @@ function create ()
         if (yflag) {out = 12 - out;} //flip coords
         out *= 8; //for 16-pixel tiles
         out -= 4; //to center
+        if (yflag) {out += 8;}
         return out;
     }
 
     //draw platforms
-    // for (let i = 0; i < platCoords.length; i++) {
-    //     platforms.create(convertPlatXY(platCoords[i][0], false), convertPlatXY(platCoords[i][1], true), "planks");
-    // }
+    for (let i = 0; i < platCoords.length; i++) {
+        platforms.create(convertPlatXY(platCoords[i][0], false), convertPlatXY(platCoords[i][1], true), "planks");
+    }
 
     let star = this.physics.add.group();
-    star.create(25,5,"star")
-    star.create(50,5,"star")
-    var starCount = 0;
+    //star.create(25,5,"star")
+    star.create(convertPlatXY(9),5,"star")
+    let starCount = 0;
     var scoreText;
     scoreText = this.add.text(2, 2, 'Score: ' + starCount, { fontSize: '11px', fill: '#fff' , fontFamily: 'Arial', backgroundColor: 'rgba(0,0,0,0.75)'});
     scoreText.setScrollFactor(0)
 
     enemy1 = this.physics.add.group();
     my_enemy_1 = enemy1.create(75,5,"enemy1");
-    my_enemy_1.body.velocity.x = -2;
+    my_enemy_1.body.velocity.x = -6;
 
     //make floor solid to player
     this.physics.add.collider(player, platforms);
@@ -168,11 +170,12 @@ function create ()
     this.physics.add.collider(enemy1, platforms)
     this.physics.add.collider(enemy1, player, (player, enemy1) => {
         if (player.body.touching.down && enemy1.body.touching.up) {
-            starCount += 10;
             enemy1.body.velocity.x = 0;
             enemy1.anims.play('enemy1_die', true);
             setTimeout(() => {
                 enemy1.disableBody(true, true);
+                starCount += 1;
+                scoreText.setText('Score: '+starCount)
             }, 400);
         } else {
             if (enemy1.body.velocity.x != 0) {
