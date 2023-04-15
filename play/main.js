@@ -137,7 +137,7 @@ function create ()
     this.anims.create({
         key: 'enemy1_die',
         frames: this.anims.generateFrameNumbers('enemy1', { start: 5, end: 11 }),
-        frameRate: 2,
+        frameRate: 18,
         repeat: 0,
         hideOnComplete: true
     });
@@ -146,18 +146,19 @@ function create ()
     this.physics.add.collider(enemy1, platforms)
     this.physics.add.collider(enemy1, player, (player, enemy1) => {
         if (player.body.touching.down && enemy1.body.touching.up) {
+            starCount += 10;
             enemy1.body.velocity.x = 0;
             enemy1.anims.play('enemy1_die', true);
             setTimeout(() => {
                 enemy1.disableBody(true, true);
-            }, 2000)
-            starCount += 10;
+            }, 400);
         } else {
-            //player.anims.play('die', true);
-            player.disableBody(true, true);
-            this.add.text(39, 36, 'YOU DIED', { fontSize: '11px', fill: '#ff0000', fontFamily: 'Arial Black', backgroundColor: 'rgba(0,0,0,0.75)'});
-            this.add.text(36, 48, 'Final score: ' + starCount, {fontSize: '10px', fontFamily: 'Arial', backgroundColor:'rgba(0,0,0,0.75)'})
-            //obj1.disableBody(true, true);
+            if (enemy1.body.velocity.x != 0) {
+                player.disableBody(true, true);
+                this.add.text(39, 36, 'YOU DIED', { fontSize: '11px', fill: '#ff0000', fontFamily: 'Arial Black', backgroundColor: 'rgba(0,0,0,0.75)'});
+                this.add.text(36, 48, 'Final score: ' + starCount, {fontSize: '10px', fontFamily: 'Arial', backgroundColor:'rgba(0,0,0,0.75)'})
+                //obj1.disableBody(true, true);
+            }
         }
     })
 
