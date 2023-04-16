@@ -136,7 +136,6 @@ function create ()
     }
 
     let star = this.physics.add.group();
-    //star.create(25,5,"star")
     star.create(convertPlatXY(9),5,"star")
     star.create(convertPlatXY(27.5,false),convertPlatXY(12,true),"star")
     let starCount = 0;
@@ -144,6 +143,11 @@ function create ()
     scoreText = this.add.text(2, 2, 'Score: ' + starCount, { fontSize: '11px', fill: '#fff' , fontFamily: 'Arial', backgroundColor: 'rgba(0,0,0,0.75)'});
     scoreText.setScrollFactor(0)
 
+    //rocket spawn
+    rocket = this.physics.add.group();
+    rocket.create(245,2,"rocket")
+
+    //enemy spawn
     enemy1 = this.physics.add.group();
     my_enemy_1 = enemy1.create(75,5,"enemy1");
     my_enemy_1.body.velocity.x = -6;
@@ -233,7 +237,6 @@ function create ()
                 deathtext_2 = this.add.text(22, 48, 'Final score: ' + starCount, {fontSize: '10px', fontFamily: 'Arial', backgroundColor:'rgba(0,0,0,0.75)'});
                 deathtext_1.setScrollFactor(0)
                 deathtext_2.setScrollFactor(0)
-                //obj1.disableBody(true, true);
             }
         }
     })
@@ -253,6 +256,21 @@ function create ()
         repeat: -1
     });
 
+    //code for player to enter rocket
+    this.physics.add.collider(rocket, platforms)
+    this.physics.add.overlap(player, rocket, (player, rocket) => {
+        if (player.body.touching && rocket.body.touching) {
+            player.disableBody(true, true);
+            rocket.anims.play('fly', true);
+            var wintext_1
+            var wintext_2
+            wintext_1 = this.add.text(25, 36, 'YOU WIN', { fontSize: '11px', fill: '#ffffe0', fontFamily: 'Arial Black', backgroundColor: 'rgba(0,0,0,0.75)'});
+            wintext_2 = this.add.text(22, 48, 'Final score: ' + starCount, {fontSize: '10px', fontFamily: 'Arial', backgroundColor:'rgba(0,0,0,0.75)'});};
+            wintext_1.setScrollFactor(0)
+            wintext_2.setScrollFactor(0)
+    
+    })
+    
     //camera
     this.cameras.main.startFollow(player);
 }
