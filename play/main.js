@@ -82,7 +82,15 @@ function create ()
         [0,0],[0,1],[0,2],[0,3],[0,4],[0,5],
         [0,6],[0,7],[0,8],[0,9],[0,10],[0,11],
         [0,12],[5,2],[5,3],[9,2],[9,3],[9,4],[9,5],
-        [12,2],[12,3],[12,4],[9,9]        
+        [12,2],[12,3],[12,4],[9,9],[16,2],[17,2],
+        [17,3],[18,2],[18,3],[19,2],[19,3],[20,2],
+        [20,3],[21,2],[21,3],[22,2],[22,3],[23,2],
+        [23,3],[24,2],[24,3],[25,2],[25,3],[26,2],
+        [26,3],[27,2],[27,3],[28,2],[28,3],[16,6],
+        [17,6],[18,6],[19,6],[20,6],[23,6],[24,6],
+        [25,6],[26,6],[27,6],[28,6],[16,7],[17,7],
+        [18,7],[19,7],[20,7],[23,7],[24,7],[25,7],
+        [26,7],[27,7],[28,7]
     ];
 
     let convertPlatXY = function(coord, yflag) {
@@ -110,6 +118,8 @@ function create ()
     enemy1 = this.physics.add.group();
     my_enemy_1 = enemy1.create(75,5,"enemy1");
     my_enemy_1.body.velocity.x = -6;
+    my_enemy_2 = enemy1.create(convertPlatXY(27,false),convertPlatXY(4,true),"enemy1");
+    my_enemy_2.body.velocity.x = -6;
 
     //make floor solid to player
     this.physics.add.collider(player, platforms);
@@ -246,6 +256,10 @@ function update ()
         //enemy animation
         if (Math.abs(my_enemy_1.body.velocity.x) != 0) {
             my_enemy_1.anims.play('enemy1_walk', true)
+        }
+
+        if (Math.abs(my_enemy_2.body.velocity.x) != 0) {
+            my_enemy_2.anims.play('enemy1_walk', true)
         }
 
         //camera follows player
