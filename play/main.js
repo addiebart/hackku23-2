@@ -37,7 +37,7 @@ function preload ()
     this.load.spritesheet("enemy1", "enemy1.png", {
         frameWidth: 16,
         frameHeight: 16});
-    this.load.spritesheet("planks", "woodplank.jpg", {
+    this.load.spritesheet("block", "block.png", {
         frameHeight: 8,
         frameWidth: 8
     })
@@ -104,7 +104,7 @@ function create ()
 
     //draw platforms
     for (let i = 0; i < platCoords.length; i++) {
-        platforms.create(convertPlatXY(platCoords[i][0], false), convertPlatXY(platCoords[i][1], true), "planks");
+        platforms.create(convertPlatXY(platCoords[i][0], false), convertPlatXY(platCoords[i][1], true), "block");
     }
 
     let star = this.physics.add.group();
