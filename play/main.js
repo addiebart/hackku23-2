@@ -183,9 +183,10 @@ function create ()
             }, 400);
         } else {
             if (enemy1.body.velocity.x != 0) {
-                player.disableBody(true, true);
+                (()=>{player.disableBody(true, true);
                 this.add.text(25, 36, 'YOU DIED', { fontSize: '11px', fill: '#ff0000', fontFamily: 'Arial Black', backgroundColor: 'rgba(0,0,0,0.75)'});
-                this.add.text(22, 48, 'Final score: ' + starCount, {fontSize: '10px', fontFamily: 'Arial', backgroundColor:'rgba(0,0,0,0.75)'})
+                this.add.text(22, 48, 'Final score: ' + starCount, {fontSize: '10px', fontFamily: 'Arial', backgroundColor:'rgba(0,0,0,0.75)'});})();
+        
                 //obj1.disableBody(true, true);
             }
         }
@@ -203,7 +204,7 @@ function update ()
         //right
         if (arrowKey?.right.isDown) {
             player.body.velocity.x = speed;
-            if (player.body.touching.down && shift.isDown) {
+            if (/*player.body.touching.down &&*/ shift.isDown) {
                 player.body.velocity.x = speed * 2.5;
             }
             player.anims.play('walk', true);
@@ -212,7 +213,7 @@ function update ()
         //left
         else if (arrowKey?.left.isDown) {
             player.body.velocity.x = -speed;
-            if (player.body.touching.down && shift.isDown) {
+            if (/*player.body.touching.down &&*/ shift.isDown) {
                 player.body.velocity.x = -speed * 2.5;
             }
             player.anims.play('walk', true);
