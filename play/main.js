@@ -118,8 +118,12 @@ function create ()
     enemy1 = this.physics.add.group();
     my_enemy_1 = enemy1.create(75,5,"enemy1");
     my_enemy_1.body.velocity.x = -6;
-    my_enemy_2 = enemy1.create(convertPlatXY(27,false),convertPlatXY(4,true),"enemy1");
-    my_enemy_2.body.velocity.x = -6;
+    setTimeout(() => {
+        if (player.body.position.x >= (convertPlatXY(15,false))){
+            my_enemy_2 = enemy1.create(convertPlatXY(27,false),convertPlatXY(4,true),"enemy1");
+            my_enemy_2.body.velocity.x = -6;
+        }
+    },5000)
 
     //make floor solid to player
     this.physics.add.collider(player, platforms);
@@ -257,9 +261,10 @@ function update ()
         if (Math.abs(my_enemy_1.body.velocity.x) != 0) {
             my_enemy_1.anims.play('enemy1_walk', true)
         }
-
-        if (Math.abs(my_enemy_2.body.velocity.x) != 0) {
-            my_enemy_2.anims.play('enemy1_walk', true)
+        if (typeof my_enemy_2 != "undefined"){
+            if (Math.abs(my_enemy_2.body.velocity.x) != 0) {
+                my_enemy_2.anims.play('enemy1_walk', true)
+            }
         }
 
         //camera follows player
