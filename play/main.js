@@ -152,11 +152,11 @@ function create ()
     my_enemy_1 = enemy1.create(75,5,"enemy1");
     my_enemy_1.body.velocity.x = -6;
     setTimeout(() => {
-        console.log(convertPlatXY(player.x,false))
         my_enemy_2 = enemy1.create(convertPlatXY(27,false),convertPlatXY(4,true),"enemy1");
         my_enemy_2.body.velocity.x = -6;
-    }
-    ,10000)
+    },8000)
+    my_enemy_3 = enemy1.create(convertPlatXY(38,false),convertPlatXY(4,true),"enemy1");
+    my_enemy_3.body.velocity.x = -6
 
     //make floor solid to player
     this.physics.add.collider(player, platforms);
@@ -215,11 +215,27 @@ function create ()
     });
 
     //code for player to die when touching enemy
-    this.physics.add.collider(enemy1, platforms)
+    this.physics.add.collider(enemy1, platforms, (enemy1, platforms) => {
+        if (platforms.body.touching && enemy1.body.touching.left) {
+            enemy1.body.velocity.x = 6;
+            enemy1.flipX = true;
+        }
+
+        if (enemy1.body.touching.right && platforms.body.touching) {
+            enemy1.body.velocity.x = -6;
+            enemy1.flipX = false;
+        }
+    })
     this.physics.add.collider(enemy1, player, (player, enemy1) => {
         if (player.body.touching.down && enemy1.body.touching.up) {
-            enemy1.body.velocity.x = 0;
-            enemy1.anims.play('enemy1_die', true);
+            if (enemy1.body.velocity.x < 0){
+                enemy1.body.velocity.x = 0;
+                enemy1.anims.play('enemy1_die', true);
+            } else {
+                enemy1.body.velocity.x = 0;
+                enemy1.anims.play('enemy1_die', true);
+                enemy1.flipX = true;
+            }
             setTimeout(() => {
                 enemy1.disableBody(true, true);
 
@@ -331,6 +347,9 @@ function update ()
             if (Math.abs(my_enemy_2.body.velocity.x) != 0) {
                 my_enemy_2.anims.play('enemy1_walk', true)
             }
+        }
+        if (Math.abs(my_enemy_1.body.velocity.x) != 0) {
+            my_enemy_3.anims.play('enemy1_walk', true)
         }
 
         //camera follows player
