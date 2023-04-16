@@ -1,55 +1,92 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="style-final.css">
-        <link rel="stylesheet" href="index/style-final.css">
-        <script type="text/javascript">
-            function authors(){
-                if (document.getElementById("authorsbutton").value == "off") {
-                    document.getElementById("authors").innerHTML = "By Addie, Anya, Hunter, and Tommy. Made for HackKU 2023"
-                    //document.getElementById("authors").style.border = "2px solid white"
-                    document.getElementById("authorsbutton").value = "on"
-                    document.getElementById("authorsbutton").innerHTML = "About Us &#9665;"
-                } else {
-                    document.getElementById("authors").innerHTML = ""
-                    document.getElementById("authors").style.border = "0px"
-                    document.getElementById("authorsbutton").value = "off"
-                    document.getElementById("authorsbutton").innerHTML = "About Us &#9655;"
-                }
-            }
-
-            function gameinfo(){
-                if (document.getElementById("gamebutton").value == "off") {
-                    document.getElementById("gameinfo").innerHTML = "Enjoy a fun time in space with spaceman!";
-                    //document.getElementById("gameinfo").style.border = "2px solid white";
-                    document.getElementById("gamebutton").value = "on";
-                    document.getElementById("gamebutton").innerHTML = "About the Game &#9665;";
-                } else {
-                    document.getElementById("gameinfo").innerHTML = "";
-                    document.getElementById("gameinfo").style.border = "0px";
-                    document.getElementById("gamebutton").value = "off";
-                    document.getElementById("gamebutton").innerHTML = "About the Game &#9655;";
-                }
-            }
-
-            function mouseOver(ID){
-                document.getElementById(ID).style.color = "gray"
-            }
-        </script>
-    </head>
-    <body>
-        <div class="flex-column">
-            <div class="header"><h1>Cool epic fun game!</h1></div>
-            <div class="gamewrapper"><iframe id="inlineGame" src="https://addie.ml/hackku23-2/play/index.html"></iframe></div>
-            <div class="footer">
-                <button id="gamebutton" onclick="gameinfo()" onmouseover="this.style.color='gray';this.style.borderColor='gray'" onmouseout="this.style.color='#fff';this.style.borderColor='white'" value="off">About the Game &#9655;</button>
-                <span id="gameinfo" class="gameinfo"></span>
-                <button id="authorsbutton" onclick="authors()" onmouseover="this.style.color='gray';this.style.borderColor='gray'" onmouseout="this.style.color='#fff';this.style.borderColor='white'" value="off">About Us &#9655;</button>
-                <span id="authors" class="authors"></span>
-            </div>
-        </div>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow,noarchive">
+    <title>Document</title>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-flow: column;
+            align-items: stretch;
+        }
+        .top {
+            display: block;
+            text-align: center;
+            margin: auto;
+            width: fit-content;
+            padding: 4px;
+        }
+        h1 {
+            font-family: 'title';
+            font-size: 4em;
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: #aaa;
+        }
+        @font-face {
+            font-family: title;
+            src: url(assets/title.ttf);
+        }
+        .bg {
+            width: 3400px;
+            height: 3400px;
+            min-height: 100%;
+            min-width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        .grid {
+            display: grid;
+            align-items: center;
+            justify-items: center;
+            gap: 12px;
+            flex: 1;
+            overflow: auto;
+        }
+        a {
+            height: 75%;
+            width: 350px;
+            background-color: #aaa;
+            border: 4px solid #222;
+            display: grid;
+            align-items: center;
+            justify-items: center;
+            text-decoration: none;
+            color: currentColor;
+        }
+        a:hover {
+            color: firebrick;
+            cursor: pointer;
+        }
+        .itemdiv * {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <img src="assets/nebula.jpg" alt="" class="bg">
+    <div class="top">
+        <h1>Space World<br><span>2000</span></h1>
+    </div>
+    <div class="grid">
+        <a href="play/index.html">
+            <div class="itemdiv"><h1>PLAY!</h1></div>
+        </a>
+        <a onclick="alert('Space World 200 is a tech demo 2D platformer make for HackKU23 with the Phaser JavaScript Library. Made by with love by Addie, Hunter, Tommy, and Anya.')">
+            <div class="itemdiv"><h1>ABOUT</h1></div>
+        </a>
+        <a href="https://github.com/addiebart/spaceworld2000" referrerpolicy="no-referrer">
+            <div class="itemdiv"><h1>SOURCE</h1></div>
+        </a>
+    </div>
+</body>
 </html>
