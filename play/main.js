@@ -130,7 +130,6 @@ function create ()
     }
 
     let star = this.physics.add.group();
-    //star.create(25,5,"star")
     star.create(convertPlatXY(9),5,"star")
     star.create(convertPlatXY(27.5,false),convertPlatXY(12,true),"star")
     let starCount = 0;
