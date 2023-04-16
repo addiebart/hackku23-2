@@ -117,6 +117,11 @@ function create ()
     scoreText = this.add.text(2, 2, 'Score: ' + starCount, { fontSize: '11px', fill: '#fff' , fontFamily: 'Arial', backgroundColor: 'rgba(0,0,0,0.75)'});
     scoreText.setScrollFactor(0)
 
+    //rocket spawn
+    rocket = this.physics.add.group();
+    rocket.create(250,2,"rocket")
+
+    //enemy spawn
     enemy1 = this.physics.add.group();
     my_enemy_1 = enemy1.create(75,5,"enemy1");
     my_enemy_1.body.velocity.x = -6;
@@ -221,6 +226,16 @@ function create ()
         repeat: -1
     });
 
+    //code for player to enter rocket
+    this.physics.add.collider(rocket, platforms)
+    this.physics.add.overlap(player, rocket, (player, rocket) => {
+        if (player.body.touching && rocket.body.touching) {
+            player.disableBody(true, true);
+            rocket.anims.play('fly', true);
+            this.add.text(25, 36, 'YOU WIN', { fontSize: '11px', fill: '#ffffe0', fontFamily: 'Arial Black', backgroundColor: 'rgba(0,0,0,0.75)'});
+            this.add.text(22, 48, 'Final score: ' + starCount, {fontSize: '10px', fontFamily: 'Arial', backgroundColor:'rgba(0,0,0,0.75)'});};
+    })
+    
     //camera
     this.cameras.main.startFollow(player);
 }
