@@ -120,8 +120,12 @@ function create ()
     enemy1 = this.physics.add.group();
     my_enemy_1 = enemy1.create(75,5,"enemy1");
     my_enemy_1.body.velocity.x = -6;
-    my_enemy_2 = enemy1.create(convertPlatXY(27,false),convertPlatXY(4,true),"enemy1");
-    my_enemy_2.body.velocity.x = -6;
+    setTimeout(() => {
+        if (player.body.position.x >= (convertPlatXY(15,false))){
+            my_enemy_2 = enemy1.create(convertPlatXY(27,false),convertPlatXY(4,true),"enemy1");
+            my_enemy_2.body.velocity.x = -6;
+        }
+    },5000)
 
     //make floor solid to player
     this.physics.add.collider(player, platforms);
@@ -195,9 +199,10 @@ function create ()
             }, 400);
         } else {
             if (enemy1.body.velocity.x != 0) {
-                player.disableBody(true, true);
+                (()=>{player.disableBody(true, true);
                 this.add.text(25, 36, 'YOU DIED', { fontSize: '11px', fill: '#ff0000', fontFamily: 'Arial Black', backgroundColor: 'rgba(0,0,0,0.75)'});
-                this.add.text(22, 48, 'Final score: ' + starCount, {fontSize: '10px', fontFamily: 'Arial', backgroundColor:'rgba(0,0,0,0.75)'})
+                this.add.text(22, 48, 'Final score: ' + starCount, {fontSize: '10px', fontFamily: 'Arial', backgroundColor:'rgba(0,0,0,0.75)'});})();
+        
                 //obj1.disableBody(true, true);
             }
         }
@@ -230,7 +235,7 @@ function update ()
         //right
         if (arrowKey?.right.isDown) {
             player.body.velocity.x = speed;
-            if (player.body.touching.down && shift.isDown) {
+            if (/*player.body.touching.down &&*/ shift.isDown) {
                 player.body.velocity.x = speed * 2.5;
             }
             player.anims.play('walk', true);
@@ -239,7 +244,7 @@ function update ()
         //left
         else if (arrowKey?.left.isDown) {
             player.body.velocity.x = -speed;
-            if (player.body.touching.down && shift.isDown) {
+            if (/*player.body.touching.down &&*/ shift.isDown) {
                 player.body.velocity.x = -speed * 2.5;
             }
             player.anims.play('walk', true);
@@ -274,9 +279,10 @@ function update ()
         if (Math.abs(my_enemy_1.body.velocity.x) != 0) {
             my_enemy_1.anims.play('enemy1_walk', true)
         }
-
-        if (Math.abs(my_enemy_2.body.velocity.x) != 0) {
-            my_enemy_2.anims.play('enemy1_walk', true)
+        if (typeof my_enemy_2 != "undefined"){
+            if (Math.abs(my_enemy_2.body.velocity.x) != 0) {
+                my_enemy_2.anims.play('enemy1_walk', true)
+            }
         }
 
         //camera follows player
