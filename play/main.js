@@ -139,7 +139,7 @@ function create ()
 
     //rocket spawn
     rocket = this.physics.add.group();
-    rocket.create(245,2,"rocket")
+    rocket.create(500,2,"rocket")
 
     //enemy spawn
     enemy1 = this.physics.add.group();
