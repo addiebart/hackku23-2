@@ -202,8 +202,6 @@ function create ()
                 (()=>{player.disableBody(true, true);
                 this.add.text(25, 36, 'YOU DIED', { fontSize: '11px', fill: '#ff0000', fontFamily: 'Arial Black', backgroundColor: 'rgba(0,0,0,0.75)'});
                 this.add.text(22, 48, 'Final score: ' + starCount, {fontSize: '10px', fontFamily: 'Arial', backgroundColor:'rgba(0,0,0,0.75)'});})();
-        
-                //obj1.disableBody(true, true);
             }
         }
     })
