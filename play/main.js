@@ -28,6 +28,9 @@ function preload ()
     this.load.setBaseURL("../assets")
     this.load.image('background', 'background.png');
     this.load.image('star', 'star.png')
+    this.load.spritesheet('rocket', 'rocket.png', {
+        frameWidth: 16,
+        frameHeight: 16});
     this.load.spritesheet('ground', 'ground.png', {
         frameWidth: 16,
         frameHeight: 16});
@@ -39,8 +42,7 @@ function preload ()
         frameHeight: 16});
     this.load.spritesheet("block", "block.png", {
         frameHeight: 8,
-        frameWidth: 8
-    })
+        frameWidth: 8})
 }
 
 /** @this {Phaser.Scene} */
@@ -177,7 +179,7 @@ function create ()
         scoreText.setText('Score: '+starCount)
     });
 
-    //animation set for enemy1
+    //animation set for enemy
     this.anims.create({
         key: 'enemy1_walk',
         frames: this.anims.generateFrameNumbers('enemy1', { start: 0, end: 4 }),
@@ -208,13 +210,29 @@ function create ()
             }, 400);
         } else {
             if (enemy1.body.velocity.x != 0) {
-                player.disableBody(true, true);
+                (()=>{player.disableBody(true, true);
                 this.add.text(25, 36, 'YOU DIED', { fontSize: '11px', fill: '#ff0000', fontFamily: 'Arial Black', backgroundColor: 'rgba(0,0,0,0.75)'});
-                this.add.text(22, 48, 'Final score: ' + starCount, {fontSize: '10px', fontFamily: 'Arial', backgroundColor:'rgba(0,0,0,0.75)'})
+                this.add.text(22, 48, 'Final score: ' + starCount, {fontSize: '10px', fontFamily: 'Arial', backgroundColor:'rgba(0,0,0,0.75)'});})();
+        
                 //obj1.disableBody(true, true);
             }
         }
     })
+
+    //animation set for rocket
+    this.anims.create({
+        key: 'fly',
+        frames: this.anims.generateFrameNumbers('rocket', { start: 1, end: 7 }),
+        frameRate: 5,
+        repeat: 0,
+        hideOnComplete: true
+    });
+    this.anims.create({
+        key: 'grounded',
+        frames: this.anims.generateFrameNumbers('rocket', { start: 0, end: 0 }),
+        frameRate: 1,
+        repeat: -1
+    });
 
     //camera
     this.cameras.main.startFollow(player);
@@ -228,7 +246,7 @@ function update ()
         //right
         if (arrowKey?.right.isDown) {
             player.body.velocity.x = speed;
-            if (player.body.touching.down && shift.isDown) {
+            if (/*player.body.touching.down &&*/ shift.isDown) {
                 player.body.velocity.x = speed * 2.5;
             }
             player.anims.play('walk', true);
@@ -237,7 +255,7 @@ function update ()
         //left
         else if (arrowKey?.left.isDown) {
             player.body.velocity.x = -speed;
-            if (player.body.touching.down && shift.isDown) {
+            if (/*player.body.touching.down &&*/ shift.isDown) {
                 player.body.velocity.x = -speed * 2.5;
             }
             player.anims.play('walk', true);
