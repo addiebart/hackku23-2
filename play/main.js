@@ -86,11 +86,21 @@ function create ()
         [17,3],[18,2],[18,3],[19,2],[19,3],[20,2],
         [20,3],[21,2],[21,3],[22,2],[22,3],[23,2],
         [23,3],[24,2],[24,3],[25,2],[25,3],[26,2],
-        [26,3],[27,2],[27,3],[28,2],[28,3],[16,6],
-        [17,6],[18,6],[19,6],[20,6],[23,6],[24,6],
-        [25,6],[26,6],[27,6],[28,6],[16,7],[17,7],
-        [18,7],[19,7],[20,7],[23,7],[24,7],[25,7],
-        [26,7],[27,7],[28,7]
+        [26,3],[27,2],[27,3],[28,2],[28,3],[29,2],
+        [16,6],[17,6],[18,6],[19,6],[20,6],[23,6],
+        [24,6],[25,6],[26,6],[27,6],[28,6],[16,7],
+        [17,7],[18,7],[19,7],[20,7],[23,7],[24,7],
+        [25,7],[26,7],[27,7],[28,7],[29,7],[17,8],
+        [18,8],[19,8],[20,8],[23,8],[24,8],[25,8],
+        [26,8],[27,8],[28,8],[29,8],[17,9],[18,9],
+        [19,9],[20,9],[21,9],[22,9],[23,9],[24,9],
+        [25,9],[26,9],[27,9],[28,9],[29,9],[18,10],
+        [19,10],[20,10],[21,10],[22,10],[23,10],[24,10],
+        [25,10],[26,10],[27,10],[28,10],[29,10],[18,11],
+        [19,11],[20,11],[21,11],[22,11],[23,11],[24,11],
+        [25,11],[26,11],[27,11],[28,11],[29,11],[19,12],
+        [20,12],[21,12],[22,12],[23,12],[24,12],[25,12],
+        [26,12],[29,12],[29,13],[29,14],[29,15],[29,16]
     ];
 
     let convertPlatXY = function(coord, yflag) {
@@ -110,6 +120,7 @@ function create ()
     let star = this.physics.add.group();
     //star.create(25,5,"star")
     star.create(convertPlatXY(9),5,"star")
+    star.create(convertPlatXY(27.5,false),convertPlatXY(12,true),"star")
     let starCount = 0;
     var scoreText;
     scoreText = this.add.text(2, 2, 'Score: ' + starCount, { fontSize: '11px', fill: '#fff' , fontFamily: 'Arial', backgroundColor: 'rgba(0,0,0,0.75)'});
@@ -119,11 +130,11 @@ function create ()
     my_enemy_1 = enemy1.create(75,5,"enemy1");
     my_enemy_1.body.velocity.x = -6;
     setTimeout(() => {
-        if (player.body.position.x >= (convertPlatXY(15,false))){
-            my_enemy_2 = enemy1.create(convertPlatXY(27,false),convertPlatXY(4,true),"enemy1");
-            my_enemy_2.body.velocity.x = -6;
-        }
-    },5000)
+        console.log(convertPlatXY(player.x,false))
+        my_enemy_2 = enemy1.create(convertPlatXY(27,false),convertPlatXY(4,true),"enemy1");
+        my_enemy_2.body.velocity.x = -6;
+    }
+    ,10000)
 
     //make floor solid to player
     this.physics.add.collider(player, platforms);
