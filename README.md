@@ -15,5 +15,5 @@ We learned a lot about the technologies that we used and became familiar with th
 ## What's next for Space World 2000
 The most clear step would be to lean more heavily into design and other creative elements, as opposed the purely technical ones we spent so much of our time on. Increased art quality, sound design, etc. With modern web APIs, even [gamepad support](https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API/Using_the_Gamepad_API)  would make for a good prospect.
 ## Note
- A landscape screen and keyboard are required.
+ A landscape screen and keyboard are required.<br>
  Space World 2000 was make with love for HackKU23 by Addie, Hunter, Tommy, and Ayna.
