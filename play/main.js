@@ -28,6 +28,9 @@ function preload ()
     this.load.setBaseURL("../assets")
     this.load.image('background', 'background.png');
     this.load.image('star', 'star.png')
+    this.load.spritesheet('rocket', 'rocket.png', {
+        frameWidth: 16,
+        frameHeight: 16});
     this.load.spritesheet('ground', 'ground.png', {
         frameWidth: 16,
         frameHeight: 16});
@@ -39,8 +42,7 @@ function preload ()
         frameHeight: 16});
     this.load.spritesheet("block", "block.png", {
         frameHeight: 8,
-        frameWidth: 8
-    })
+        frameWidth: 8})
 }
 
 /** @this {Phaser.Scene} */
@@ -162,7 +164,7 @@ function create ()
         scoreText.setText('Score: '+starCount)
     });
 
-    //animation set for enemy1
+    //animation set for enemy
     this.anims.create({
         key: 'enemy1_walk',
         frames: this.anims.generateFrameNumbers('enemy1', { start: 0, end: 4 }),
@@ -200,6 +202,21 @@ function create ()
             }
         }
     })
+
+    //animation set for rocket
+    this.anims.create({
+        key: 'fly',
+        frames: this.anims.generateFrameNumbers('rocket', { start: 1, end: 7 }),
+        frameRate: 5,
+        repeat: 0,
+        hideOnComplete: true
+    });
+    this.anims.create({
+        key: 'grounded',
+        frames: this.anims.generateFrameNumbers('rocket', { start: 0, end: 0 }),
+        frameRate: 1,
+        repeat: -1
+    });
 
     //camera
     this.cameras.main.startFollow(player);
