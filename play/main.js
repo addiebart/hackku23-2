@@ -88,11 +88,31 @@ function create ()
         [17,3],[18,2],[18,3],[19,2],[19,3],[20,2],
         [20,3],[21,2],[21,3],[22,2],[22,3],[23,2],
         [23,3],[24,2],[24,3],[25,2],[25,3],[26,2],
-        [26,3],[27,2],[27,3],[28,2],[28,3],[16,6],
-        [17,6],[18,6],[19,6],[20,6],[23,6],[24,6],
+        [26,3],[27,2],[27,3],[28,2],[28,3],[29,2],
+        [16,6],[17,6],[18,6],[19,6],[23,6],[24,6],
         [25,6],[26,6],[27,6],[28,6],[16,7],[17,7],
-        [18,7],[19,7],[20,7],[23,7],[24,7],[25,7],
-        [26,7],[27,7],[28,7]
+        [18,7],[19,7],[23,7],[24,7],[25,7],[26,7],
+        [27,7],[28,7],[29,7],[17,8],[18,8],[19,8],
+        [23,8],[24,8],[25,8],[26,8],[27,8],[28,8],
+        [29,8],[17,9],[18,9],[19,9],[20,9],[21,9],
+        [22,9],[23,9],[24,9],[25,9],[26,9],[27,9],
+        [28,9],[29,9],[18,10],[19,10],[20,10],[21,10],
+        [22,10],[23,10],[24,10],[25,10],[26,10],[27,10],
+        [28,10],[29,10],[18,11],[19,11],[20,11],[21,11],
+        [22,11],[23,11],[24,11],[25,11],[26,11],[27,11],
+        [28,11],[29,11],[19,12],[20,12],[21,12],[22,12],
+        [23,12],[24,12],[25,12],[26,12],[29,12],[29,13],
+        [29,14],[29,15],[29,16],[33,2],[34,2],[34,3],
+        [35,2],[35,3],[36,2],[36,3],[40,2],[40,3],
+        [41,2],[41,3],[41,4],[42,2],[42,3],[42,4],
+        [42,5],[42,10],[43,2],[43,3],[43,4],[43,5],
+        [43,6],[43,7],[43,8],[43,9],[43,10],[33,7],
+        [34,7],[35,7],[36,7],[37,7],[38,7],[39,7],
+        [40,7],[43,11],[42,11],[41,11],[40,11],[39,11],
+        [38,11],[38,10],[37,10],[33,8],[33,9],[33,10],
+        [33,11],[33,12],[33,13],[33,14],[44,2],[44,3],
+        [44,4],[44,5],[44,6],[44,7],[44,8],[44,9],
+        [44,10]
     ];
 
     let convertPlatXY = function(coord, yflag) {
@@ -112,6 +132,7 @@ function create ()
     let star = this.physics.add.group();
     //star.create(25,5,"star")
     star.create(convertPlatXY(9),5,"star")
+    star.create(convertPlatXY(27.5,false),convertPlatXY(12,true),"star")
     let starCount = 0;
     var scoreText;
     scoreText = this.add.text(2, 2, 'Score: ' + starCount, { fontSize: '11px', fill: '#fff' , fontFamily: 'Arial', backgroundColor: 'rgba(0,0,0,0.75)'});
@@ -119,18 +140,18 @@ function create ()
 
     //rocket spawn
     rocket = this.physics.add.group();
-    rocket.create(250,2,"rocket")
+    rocket.create(245,2,"rocket")
 
     //enemy spawn
     enemy1 = this.physics.add.group();
     my_enemy_1 = enemy1.create(75,5,"enemy1");
     my_enemy_1.body.velocity.x = -6;
     setTimeout(() => {
-        if (player.body.position.x >= (convertPlatXY(15,false))){
-            my_enemy_2 = enemy1.create(convertPlatXY(27,false),convertPlatXY(4,true),"enemy1");
-            my_enemy_2.body.velocity.x = -6;
-        }
-    },5000)
+        console.log(convertPlatXY(player.x,false))
+        my_enemy_2 = enemy1.create(convertPlatXY(27,false),convertPlatXY(4,true),"enemy1");
+        my_enemy_2.body.velocity.x = -6;
+    }
+    ,10000)
 
     //make floor solid to player
     this.physics.add.collider(player, platforms);
@@ -204,9 +225,13 @@ function create ()
             }, 400);
         } else {
             if (enemy1.body.velocity.x != 0) {
-                (()=>{player.disableBody(true, true);
-                this.add.text(25, 36, 'YOU DIED', { fontSize: '11px', fill: '#ff0000', fontFamily: 'Arial Black', backgroundColor: 'rgba(0,0,0,0.75)'});
-                this.add.text(22, 48, 'Final score: ' + starCount, {fontSize: '10px', fontFamily: 'Arial', backgroundColor:'rgba(0,0,0,0.75)'});})();
+                player.disableBody(true, true);
+                var deathtext_1
+                var deathtext_2
+                deathtext_1 = this.add.text(25, 36, 'YOU DIED', { fontSize: '11px', fill: '#ff0000', fontFamily: 'Arial Black', backgroundColor: 'rgba(0,0,0,0.75)'});
+                deathtext_2 = this.add.text(22, 48, 'Final score: ' + starCount, {fontSize: '10px', fontFamily: 'Arial', backgroundColor:'rgba(0,0,0,0.75)'});
+                deathtext_1.setScrollFactor(0)
+                deathtext_2.setScrollFactor(0)
             }
         }
     })
@@ -232,8 +257,13 @@ function create ()
         if (player.body.touching && rocket.body.touching) {
             player.disableBody(true, true);
             rocket.anims.play('fly', true);
-            this.add.text(25, 36, 'YOU WIN', { fontSize: '11px', fill: '#ffffe0', fontFamily: 'Arial Black', backgroundColor: 'rgba(0,0,0,0.75)'});
-            this.add.text(22, 48, 'Final score: ' + starCount, {fontSize: '10px', fontFamily: 'Arial', backgroundColor:'rgba(0,0,0,0.75)'});};
+            var wintext_1
+            var wintext_2
+            wintext_1 = this.add.text(25, 36, 'YOU WIN', { fontSize: '11px', fill: '#ffffe0', fontFamily: 'Arial Black', backgroundColor: 'rgba(0,0,0,0.75)'});
+            wintext_2 = this.add.text(22, 48, 'Final score: ' + starCount, {fontSize: '10px', fontFamily: 'Arial', backgroundColor:'rgba(0,0,0,0.75)'});};
+            wintext_1.setScrollFactor(0)
+            wintext_2.setScrollFactor(0)
+    
     })
     
     //camera
