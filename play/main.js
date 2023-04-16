@@ -247,6 +247,7 @@ function create ()
         } else {
             if (enemy1.body.velocity.x != 0) {
                 player.disableBody(true, true);
+                new Audio('../assets/death.mp3').play()
                 var deathtext_1
                 var deathtext_2
                 deathtext_1 = this.add.text(25, 36, 'YOU DIED', { fontSize: '11px', fill: '#ff0000', fontFamily: 'Arial Black', backgroundColor: 'rgba(0,0,0,0.75)'});
